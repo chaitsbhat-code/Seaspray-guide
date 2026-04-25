@@ -1,0 +1,899 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Your Cape Cod Guide · 43 Seaspray Dr</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+<style>
+  :root {
+    --sand: #f5efe6;
+    --dune: #e8dcc8;
+    --ocean: #2d6a8f;
+    --deep: #1a3f56;
+    --sea-glass: #7ab8c4;
+    --coral: #d4735e;
+    --kelp: #4a7c59;
+    --fog: #f9f6f1;
+    --ink: #1c1c1c;
+    --muted: #6b6560;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--fog);
+    color: var(--ink);
+    overflow-x: hidden;
+  }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    background: linear-gradient(160deg, var(--deep) 0%, var(--ocean) 45%, var(--sea-glass) 100%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+    text-align: center;
+    padding: 2rem;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 160px;
+    background: var(--fog);
+    clip-path: ellipse(60% 100% at 50% 100%);
+  }
+
+  .wave-rings {
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+  }
+  .wave-rings span {
+    position: absolute;
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    animation: pulse 6s ease-in-out infinite;
+  }
+  .wave-rings span:nth-child(1) { width: 300px; height: 300px; animation-delay: 0s; }
+  .wave-rings span:nth-child(2) { width: 500px; height: 500px; animation-delay: 1.5s; }
+  .wave-rings span:nth-child(3) { width: 700px; height: 700px; animation-delay: 3s; }
+  .wave-rings span:nth-child(4) { width: 900px; height: 900px; animation-delay: 4.5s; }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 0; transform: translate(-50%, -50%) scale(0.95); }
+    50% { opacity: 1; transform: translate(-50%, -50%) scale(1.05); }
+  }
+
+  .hero-badge {
+    background: rgba(255,255,255,0.12);
+    border: 1px solid rgba(255,255,255,0.25);
+    color: white;
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    padding: 0.4rem 1rem;
+    border-radius: 2rem;
+    margin-bottom: 1.5rem;
+    backdrop-filter: blur(8px);
+    position: relative;
+    z-index: 2;
+  }
+
+  .hero h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.8rem, 8vw, 5.5rem);
+    color: white;
+    line-height: 1.05;
+    position: relative;
+    z-index: 2;
+    max-width: 700px;
+  }
+
+  .hero h1 em {
+    font-style: italic;
+    color: var(--sea-glass);
+  }
+
+  .hero-sub {
+    color: rgba(255,255,255,0.7);
+    font-size: 1rem;
+    font-weight: 300;
+    margin-top: 1rem;
+    letter-spacing: 0.05em;
+    position: relative;
+    z-index: 2;
+  }
+
+  .scroll-hint {
+    position: absolute;
+    bottom: 3rem;
+    left: 50%;
+    transform: translateX(-50%);
+    color: rgba(255,255,255,0.5);
+    font-size: 0.75rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  .scroll-hint::after {
+    content: '';
+    width: 1px;
+    height: 40px;
+    background: linear-gradient(to bottom, rgba(255,255,255,0.4), transparent);
+    animation: scrollLine 1.5s ease-in-out infinite;
+  }
+  @keyframes scrollLine {
+    0%, 100% { opacity: 0.4; transform: scaleY(0.6); }
+    50% { opacity: 1; transform: scaleY(1); }
+  }
+
+  /* LAYOUT */
+  .container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 1.5rem;
+  }
+
+  /* SECTION HEADERS */
+  .section {
+    padding: 5rem 0;
+  }
+
+  .section-label {
+    font-size: 0.68rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--ocean);
+    font-weight: 500;
+    margin-bottom: 0.75rem;
+  }
+
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2rem, 5vw, 3rem);
+    color: var(--deep);
+    line-height: 1.15;
+  }
+
+  .section-title em {
+    font-style: italic;
+    color: var(--ocean);
+  }
+
+  .divider {
+    width: 48px;
+    height: 2px;
+    background: var(--coral);
+    margin: 1.5rem 0 2.5rem;
+  }
+
+  /* CLUB SECTION */
+  .club-section {
+    background: var(--deep);
+    color: white;
+    padding: 5rem 0;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .club-section::before {
+    content: 'SSA';
+    position: absolute;
+    right: -2rem;
+    top: 50%;
+    transform: translateY(-50%);
+    font-family: 'Playfair Display', serif;
+    font-size: 18rem;
+    color: rgba(255,255,255,0.03);
+    line-height: 1;
+    pointer-events: none;
+  }
+
+  .club-section .section-label { color: var(--sea-glass); }
+  .club-section .section-title { color: white; }
+  .club-section .section-title em { color: var(--sea-glass); }
+  .club-section .divider { background: var(--sea-glass); }
+
+  .club-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1.5rem;
+    margin-top: 2rem;
+  }
+
+  .club-card {
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 12px;
+    padding: 1.75rem 1.5rem;
+    transition: background 0.3s, transform 0.3s;
+  }
+
+  .club-card:hover {
+    background: rgba(255,255,255,0.1);
+    transform: translateY(-4px);
+  }
+
+  .club-icon {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+  }
+
+  .club-card h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.1rem;
+    margin-bottom: 0.5rem;
+    color: white;
+  }
+
+  .club-card p {
+    font-size: 0.85rem;
+    color: rgba(255,255,255,0.6);
+    line-height: 1.6;
+  }
+
+  /* ACTIVITY CARDS */
+  .activity-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 1.5rem;
+  }
+
+  .activity-card {
+    background: white;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 2px 20px rgba(0,0,0,0.06);
+    transition: transform 0.3s, box-shadow 0.3s;
+    border: 1px solid var(--dune);
+  }
+
+  .activity-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 12px 40px rgba(0,0,0,0.12);
+  }
+
+  .card-color-bar {
+    height: 5px;
+  }
+  .bar-ocean { background: linear-gradient(90deg, var(--ocean), var(--sea-glass)); }
+  .bar-kelp  { background: linear-gradient(90deg, var(--kelp), #8dc49a); }
+  .bar-coral { background: linear-gradient(90deg, var(--coral), #e8a090); }
+
+  .card-body {
+    padding: 1.5rem;
+  }
+
+  .card-tag {
+    font-size: 0.65rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--muted);
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+  }
+
+  .card-body h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.2rem;
+    color: var(--deep);
+    margin-bottom: 0.5rem;
+  }
+
+  .card-body p {
+    font-size: 0.875rem;
+    color: var(--muted);
+    line-height: 1.65;
+  }
+
+  .card-detail {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-size: 0.78rem;
+    color: var(--ocean);
+    margin-top: 1rem;
+    font-weight: 500;
+  }
+
+  /* RESTAURANT SECTION */
+  .restaurant-section {
+    background: var(--sand);
+    padding: 5rem 0;
+  }
+
+  .restaurant-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+    background: var(--dune);
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 4px 30px rgba(0,0,0,0.06);
+  }
+
+  .restaurant-item {
+    background: white;
+    padding: 1.5rem 2rem;
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    align-items: center;
+    gap: 1.5rem;
+    transition: background 0.2s;
+    cursor: default;
+  }
+
+  .restaurant-item:hover { background: var(--fog); }
+
+  .restaurant-rank {
+    font-family: 'Playfair Display', serif;
+    font-size: 2rem;
+    color: var(--dune);
+    font-weight: 700;
+    line-height: 1;
+    min-width: 2.5rem;
+    text-align: center;
+  }
+
+  .restaurant-info h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.1rem;
+    color: var(--deep);
+  }
+
+  .restaurant-info p {
+    font-size: 0.82rem;
+    color: var(--muted);
+    margin-top: 0.25rem;
+    line-height: 1.5;
+  }
+
+  .restaurant-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    margin-top: 0.5rem;
+  }
+
+  .tag {
+    font-size: 0.65rem;
+    padding: 0.2rem 0.6rem;
+    border-radius: 2rem;
+    font-weight: 500;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+  }
+
+  .tag-seafood { background: #e8f4f8; color: var(--ocean); }
+  .tag-views   { background: #f0f8ee; color: var(--kelp); }
+  .tag-casual  { background: #fdf3f0; color: var(--coral); }
+  .tag-star    { background: var(--deep); color: white; }
+
+  .restaurant-dist {
+    font-size: 0.78rem;
+    color: var(--muted);
+    white-space: nowrap;
+    text-align: right;
+  }
+
+  /* QR SECTION */
+  .qr-section {
+    background: var(--deep);
+    padding: 5rem 0;
+    text-align: center;
+  }
+
+  .qr-section .section-label { color: var(--sea-glass); }
+  .qr-section .section-title { color: white; }
+  .qr-section .section-title em { color: var(--sea-glass); }
+  .qr-section .divider { margin: 1.5rem auto 2rem; }
+
+  .qr-wrapper {
+    display: inline-block;
+    background: white;
+    padding: 1.5rem;
+    border-radius: 20px;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+    margin: 2rem 0;
+  }
+
+  .qr-label {
+    color: rgba(255,255,255,0.6);
+    font-size: 0.85rem;
+    margin-top: 0.5rem;
+  }
+
+  /* FOOTER */
+  footer {
+    background: var(--ink);
+    color: rgba(255,255,255,0.4);
+    text-align: center;
+    padding: 2rem;
+    font-size: 0.8rem;
+    letter-spacing: 0.05em;
+  }
+
+  footer span { color: var(--sea-glass); }
+
+  /* NAV */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    padding: 1.2rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: background 0.4s, box-shadow 0.4s;
+  }
+
+  nav.scrolled {
+    background: rgba(26, 63, 86, 0.96);
+    backdrop-filter: blur(12px);
+    box-shadow: 0 2px 20px rgba(0,0,0,0.2);
+  }
+
+  .nav-logo {
+    font-family: 'Playfair Display', serif;
+    color: white;
+    font-size: 1.1rem;
+    letter-spacing: 0.05em;
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 2rem;
+    list-style: none;
+  }
+
+  .nav-links a {
+    color: rgba(255,255,255,0.7);
+    text-decoration: none;
+    font-size: 0.82rem;
+    letter-spacing: 0.05em;
+    transition: color 0.2s;
+  }
+
+  .nav-links a:hover { color: white; }
+
+  /* WELCOME STRIP */
+  .welcome-strip {
+    background: white;
+    border-bottom: 1px solid var(--dune);
+    padding: 2rem 0;
+  }
+
+  .welcome-inner {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    flex-wrap: wrap;
+  }
+
+  .welcome-text { flex: 1; min-width: 260px; }
+  .welcome-text h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.5rem;
+    color: var(--deep);
+  }
+  .welcome-text p {
+    color: var(--muted);
+    font-size: 0.9rem;
+    margin-top: 0.4rem;
+    line-height: 1.6;
+  }
+
+  .welcome-pills {
+    display: flex;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+  }
+
+  .pill {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.5rem 1rem;
+    background: var(--fog);
+    border: 1px solid var(--dune);
+    border-radius: 2rem;
+    font-size: 0.8rem;
+    color: var(--deep);
+    font-weight: 500;
+  }
+
+  /* RESPONSIVE */
+  @media (max-width: 600px) {
+    .nav-links { display: none; }
+    .restaurant-item { grid-template-columns: auto 1fr; }
+    .restaurant-dist { display: none; }
+  }
+
+  /* ANIMATIONS */
+  .fade-in {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+  .fade-in.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .hero-content {
+    position: relative;
+    z-index: 2;
+    animation: heroFade 1s ease forwards;
+  }
+  @keyframes heroFade {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+</style>
+</head>
+<body>
+
+<nav id="navbar">
+  <div class="nav-logo">43 Seaspray · East Falmouth</div>
+  <ul class="nav-links">
+    <li><a href="#club">The Club</a></li>
+    <li><a href="#outdoors">Outdoors</a></li>
+    <li><a href="#dining">Dining</a></li>
+    <li><a href="#qr">Share</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="wave-rings">
+    <span></span><span></span><span></span><span></span>
+  </div>
+  <div class="hero-content">
+    <div class="hero-badge">Welcome to East Falmouth, Cape Cod</div>
+    <h1>Your <em>Cape Escape</em><br>Starts Here</h1>
+    <p class="hero-sub">43 Seaspray Drive · Seacoast Shores · East Falmouth, MA</p>
+  </div>
+  <div class="scroll-hint">Explore</div>
+</section>
+
+<!-- WELCOME STRIP -->
+<section class="welcome-strip">
+  <div class="container">
+    <div class="welcome-inner">
+      <div class="welcome-text">
+        <h2>Welcome to the neighborhood</h2>
+        <p>You're staying in one of Cape Cod's most beloved coastal communities. Here's everything you need to make the most of your time here — beaches, kayaking, biking, fresh seafood and more.</p>
+      </div>
+      <div class="welcome-pills">
+        <div class="pill">🏖️ Private Beach Access</div>
+        <div class="pill">🏊 Pool & Courts</div>
+        <div class="pill">🚤 Boat Ramp Nearby</div>
+        <div class="pill">🦞 Seafood Heaven</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CLUB SECTION -->
+<section class="club-section" id="club">
+  <div class="container">
+    <p class="section-label fade-in">On Your Doorstep</p>
+    <h2 class="section-title fade-in">Seacoast Shores <em>Association</em></h2>
+    <div class="divider fade-in"></div>
+    <p style="color: rgba(255,255,255,0.65); max-width: 600px; line-height: 1.7; font-size: 0.95rem;" class="fade-in">
+      You have access to one of Cape Cod's finest private community clubs — right here in Seacoast Shores. Often called <em style="color: var(--sea-glass);">"the most family-friendly community on Cape Cod,"</em> the association offers resort-style amenities just steps from the house.
+    </p>
+    <div class="club-grid">
+      <div class="club-card fade-in">
+        <div class="club-icon">🏖️</div>
+        <h3>Private Association Beach</h3>
+        <p>Your own slice of sand on the Childs River estuary — calm, quiet, and never crowded.</p>
+      </div>
+      <div class="club-card fade-in">
+        <div class="club-icon">🏊</div>
+        <h3>Olympic-Size Pool</h3>
+        <p>A stunning full-size pool with a classic Cape Cod setting. Perfect for lazy afternoons.</p>
+      </div>
+      <div class="club-card fade-in">
+        <div class="club-icon">🎾</div>
+        <h3>Tennis & Sport Courts</h3>
+        <p>Multi-sport courts for tennis and more. Grab a racket and enjoy a game with the family.</p>
+      </div>
+      <div class="club-card fade-in">
+        <div class="club-icon">🍽️</div>
+        <h3>Clubhouse Restaurant & Bar</h3>
+        <p>A high-end on-site restaurant and bar — great for a relaxed dinner without leaving the neighborhood.</p>
+      </div>
+      <div class="club-card fade-in">
+        <div class="club-icon">⛵</div>
+        <h3>Boat Ramp</h3>
+        <p>A town boat ramp on the Childs River is nearby — easy access for kayakers and boaters alike.</p>
+      </div>
+      <div class="club-card fade-in">
+        <div class="club-icon">🌊</div>
+        <h3>31 Water Access Points</h3>
+        <p>The community has deeded access to dozens of waterfront spots throughout the peninsula.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- OUTDOOR ACTIVITIES -->
+<section class="section" id="outdoors">
+  <div class="container">
+    <p class="section-label fade-in">Get Outside</p>
+    <h2 class="section-title fade-in">Outdoor <em>Adventures</em></h2>
+    <div class="divider fade-in"></div>
+    <div class="activity-grid">
+
+      <div class="activity-card fade-in">
+        <div class="card-color-bar bar-ocean"></div>
+        <div class="card-body">
+          <p class="card-tag">Paddling</p>
+          <h3>Kayak the Childs River & Waquoit Bay</h3>
+          <p>Launch right from the community boat ramp and paddle the scenic Childs River into Waquoit Bay. Head toward Washburn Island — a stunning 334-acre wildlife reserve accessible only by boat.</p>
+          <div class="card-detail">📍 Childs River · 30–45 min paddle to Washburn Island</div>
+        </div>
+      </div>
+
+      <div class="activity-card fade-in">
+        <div class="card-color-bar bar-ocean"></div>
+        <div class="card-body">
+          <p class="card-tag">Paddling</p>
+          <h3>Eel Pond & Seapit River</h3>
+          <p>Launch from Eel Pond in East Falmouth — right beside Washburn Island. Paddle up the Seapit River into Waquoit Bay for wildlife spotting: osprey nests, herons, and more.</p>
+          <div class="card-detail">🚣 Kayak rentals: RideAway Adventures · (508) 247-0827</div>
+        </div>
+      </div>
+
+      <div class="activity-card fade-in">
+        <div class="card-color-bar bar-kelp"></div>
+        <div class="card-body">
+          <p class="card-tag">Cycling</p>
+          <h3>Shining Sea Bikeway</h3>
+          <p>A beloved paved trail stretching over 10 miles from Woods Hole through Falmouth. Mostly flat with stunning coastal views — ideal for families and leisurely rides.</p>
+          <div class="card-detail">🚲 Rentals: RideAway Adventures · Corner Cycle Falmouth</div>
+        </div>
+      </div>
+
+      <div class="activity-card fade-in">
+        <div class="card-color-bar bar-kelp"></div>
+        <div class="card-body">
+          <p class="card-tag">Nature Walk</p>
+          <h3>Ashumet Holly & Wildlife Sanctuary</h3>
+          <p>Right in East Falmouth off Route 151 — 45 acres of nature trails winding through a rare holly forest. Great for birdwatching and quiet morning walks.</p>
+          <div class="card-detail">📍 Ashumet Rd, East Falmouth · Free to explore</div>
+        </div>
+      </div>
+
+      <div class="activity-card fade-in">
+        <div class="card-color-bar bar-kelp"></div>
+        <div class="card-body">
+          <p class="card-tag">Hiking</p>
+          <h3>The Knob at Quissett Harbor</h3>
+          <p>A short wooded trail leading to a rocky peninsula overlooking Buzzards Bay — one of the finest sunset spots on the Cape. Dogs welcome on leash.</p>
+          <div class="card-detail">📍 Quissett Harbor Rd, Falmouth · ~0.5 mi trail</div>
+        </div>
+      </div>
+
+      <div class="activity-card fade-in">
+        <div class="card-color-bar bar-coral"></div>
+        <div class="card-body">
+          <p class="card-tag">Water Sports</p>
+          <h3>Swimming & SUP</h3>
+          <p>Beyond the club pool and association beach, Surf Drive Beach has calm waters perfect for swimming. Rent paddleboards from RideAway Adventures for delivery to your door.</p>
+          <div class="card-detail">🏄 SUP delivery available across Cape Cod</div>
+        </div>
+      </div>
+
+      <div class="activity-card fade-in">
+        <div class="card-color-bar bar-coral"></div>
+        <div class="card-body">
+          <p class="card-tag">Fishing</p>
+          <h3>Deep-Sea & Freshwater Fishing</h3>
+          <p>Charter boats out of Falmouth Harbor for deep-sea fishing. Freshwater licenses available at local tackle shops. Kids under 15 fish freshwater license-free!</p>
+          <div class="card-detail">🎣 Charters depart Falmouth Harbor</div>
+        </div>
+      </div>
+
+      <div class="activity-card fade-in">
+        <div class="card-color-bar bar-ocean"></div>
+        <div class="card-body">
+          <p class="card-tag">Day Trip</p>
+          <h3>Washburn Island Camping</h3>
+          <p>Paddle 30–45 minutes from Childs River to reach this 334-acre state-owned island. Camp on the water at one of Cape Cod's last undeveloped gems. Reserve in advance.</p>
+          <div class="card-detail">📞 Waquoit Bay Reserve · (508) 457-0495</div>
+        </div>
+      </div>
+
+      <div class="activity-card fade-in">
+        <div class="card-color-bar bar-kelp"></div>
+        <div class="card-body">
+          <p class="card-tag">Family Fun</p>
+          <h3>Woods Hole Marine Aquarium</h3>
+          <p>The nation's oldest marine aquarium — and free admission! Don't miss the seal feedings and touch tanks. A wonderful half-day family outing just a short drive away.</p>
+          <div class="card-detail">📍 Woods Hole · Free admission · 15 min drive</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- DINING SECTION -->
+<section class="restaurant-section" id="dining">
+  <div class="container">
+    <p class="section-label fade-in">Fresh From the Sea</p>
+    <h2 class="section-title fade-in">Where to <em>Eat</em></h2>
+    <div class="divider fade-in"></div>
+    <p style="color: var(--muted); max-width: 580px; line-height: 1.7; margin-bottom: 2rem; font-size: 0.92rem;" class="fade-in">
+      Falmouth is a seafood lover's paradise. These are the local favorites — from harborfront institutions to hidden gems the locals swear by.
+    </p>
+
+    <div class="restaurant-list fade-in">
+
+      <div class="restaurant-item">
+        <div class="restaurant-rank">01</div>
+        <div class="restaurant-info">
+          <h3>The Flying Bridge</h3>
+          <p>A classic Falmouth institution right on Falmouth Harbor. Panoramic water views, lobster rolls, fisherman's platters, and grilled swordfish. Outdoor deck is a must in summer.</p>
+          <div class="restaurant-tags">
+            <span class="tag tag-star">⭐ Top Pick</span>
+            <span class="tag tag-seafood">Seafood</span>
+            <span class="tag tag-views">Harbor Views</span>
+          </div>
+        </div>
+        <div class="restaurant-dist">~10 min</div>
+      </div>
+
+      <div class="restaurant-item">
+        <div class="restaurant-rank">02</div>
+        <div class="restaurant-info">
+          <h3>The Quarterdeck</h3>
+          <p>Over 40 years of surf 'n' turf excellence on Main Street. Built with wood salvaged from a 1600s boatyard — it genuinely feels like dining below deck. Local fishermen supply the catch daily.</p>
+          <div class="restaurant-tags">
+            <span class="tag tag-seafood">Seafood</span>
+            <span class="tag tag-casual">Historic Setting</span>
+          </div>
+        </div>
+        <div class="restaurant-dist">~10 min</div>
+      </div>
+
+      <div class="restaurant-item">
+        <div class="restaurant-rank">03</div>
+        <div class="restaurant-info">
+          <h3>Pier 37 Boathouse</h3>
+          <p>Elegant harborfront dining on Scranton Ave. Known for pancetta-seared scallops, sesame-encrusted Ahi tuna, and poke bowls. Perfect for a special occasion dinner.</p>
+          <div class="restaurant-tags">
+            <span class="tag tag-seafood">Seafood</span>
+            <span class="tag tag-views">Harbor Views</span>
+            <span class="tag tag-star">Special Occasion</span>
+          </div>
+        </div>
+        <div class="restaurant-dist">~12 min</div>
+      </div>
+
+      <div class="restaurant-item">
+        <div class="restaurant-rank">04</div>
+        <div class="restaurant-info">
+          <h3>Shipwrecked</h3>
+          <p>Right on the beach at Falmouth Heights — seafood, sushi, and American fare with an unbeatable casual vibe. No reservations needed. Great after a beach day.</p>
+          <div class="restaurant-tags">
+            <span class="tag tag-seafood">Seafood & Sushi</span>
+            <span class="tag tag-casual">Beachfront</span>
+          </div>
+        </div>
+        <div class="restaurant-dist">~12 min</div>
+      </div>
+
+      <div class="restaurant-item">
+        <div class="restaurant-rank">05</div>
+        <div class="restaurant-info">
+          <h3>The Clam Man / Falmouth Fish Market</h3>
+          <p>The freshest seafood on the Cape — this is where local chefs shop. Pick up PEI mussels, stuffed scallops, swordfish steaks, or clams for a home cook night at the house.</p>
+          <div class="restaurant-tags">
+            <span class="tag tag-seafood">Fish Market</span>
+            <span class="tag tag-casual">Take Home</span>
+          </div>
+        </div>
+        <div class="restaurant-dist">~8 min</div>
+      </div>
+
+      <div class="restaurant-item">
+        <div class="restaurant-rank">06</div>
+        <div class="restaurant-info">
+          <h3>The Barking Claw</h3>
+          <p>A beloved local spot for lobster, chowder, and fried clams. Casual, fun, and always fresh — the kind of Cape Cod seafood shack you'll be telling friends about.</p>
+          <div class="restaurant-tags">
+            <span class="tag tag-seafood">Seafood</span>
+            <span class="tag tag-casual">Casual</span>
+          </div>
+        </div>
+        <div class="restaurant-dist">~10 min</div>
+      </div>
+
+      <div class="restaurant-item">
+        <div class="restaurant-rank">07</div>
+        <div class="restaurant-info">
+          <h3>Water Street Kitchen (Woods Hole)</h3>
+          <p>A hidden gem on the waterfront — all seafood is sustainably sourced, partnered with the Monterey Bay Aquarium's Seafood Watch. Watch the Martha's Vineyard ferry while you dine.</p>
+          <div class="restaurant-tags">
+            <span class="tag tag-seafood">Sustainable Seafood</span>
+            <span class="tag tag-views">Water Views</span>
+          </div>
+        </div>
+        <div class="restaurant-dist">~15 min</div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- QR SECTION -->
+<section class="qr-section" id="qr">
+  <div class="container">
+    <p class="section-label">Share This Guide</p>
+    <h2 class="section-title">Scan to <em>Explore</em></h2>
+    <div class="divider"></div>
+    <p style="color: rgba(255,255,255,0.6); max-width: 420px; margin: 0 auto; line-height: 1.7; font-size: 0.9rem;">
+      Print and display this QR code in your home so guests can always find this guide on their phone.
+    </p>
+    <div class="qr-wrapper">
+      <div id="qrcode"></div>
+    </div>
+    <p class="qr-label">43 Seaspray Dr · East Falmouth Guest Guide</p>
+  </div>
+</section>
+
+<footer>
+  Made with ♥ for guests at <span>43 Seaspray Drive, East Falmouth, MA</span>
+</footer>
+
+<script>
+  // NAV SCROLL
+  const nav = document.getElementById('navbar');
+  window.addEventListener('scroll', () => {
+    nav.classList.toggle('scrolled', window.scrollY > 60);
+  });
+
+  // FADE IN OBSERVER
+  const faders = document.querySelectorAll('.fade-in');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => entry.target.classList.add('visible'), i * 80);
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1 });
+  faders.forEach(el => observer.observe(el));
+
+  // QR CODE - points to the Airbnb listing so guests can book
+  const qrUrl = window.location.href;
+  new QRCode(document.getElementById('qrcode'), {
+    text: qrUrl,
+    width: 200,
+    height: 200,
+    colorDark: '#1a3f56',
+    colorLight: '#ffffff',
+    correctLevel: QRCode.CorrectLevel.H
+  });
+</script>
+</body>
+</html>
